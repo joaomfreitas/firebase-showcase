@@ -70,7 +70,7 @@ const Chat = () => {
 
         await addDoc(collection(db, `chatRoom/${chatCollectionId}/messages`), payload);
 
-        //if user as FCM send a notification to that user that this current user sent him a message
+        //if user has FCM send a notification to that user, notifying him that current user sent him a message
         if (userObject.fcm) {
             const userLoggedInfo = await getDoc(doc(db, 'users', auth.currentUser.uid));
 

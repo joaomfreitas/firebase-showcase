@@ -1,5 +1,4 @@
-import { getAdditionalUserInfo } from 'firebase/auth';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +27,6 @@ const Profile = () => {
     const handleChange = (event) => {
         setFile(event.target.files[0]);
     }
-    console.log('user -> ', user)
 
     const handleImageUpload = () => {
         if (!file) {
@@ -52,7 +50,6 @@ const Profile = () => {
             (err) => console.log(err),
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                    console.log('url -> ', url);
                     setImage(url);
                     updateDoc(doc(db, 'users', auth.currentUser.uid), {
                         photoUrl: url
@@ -76,7 +73,7 @@ const Profile = () => {
                                 Back to chat
                             </button>
                         </div>
-                        {(user || image) ? <img src={image || user.photoUrl} className="max-h-96" /> : null}
+                        {(user || image) ? <img alt="profile_image" src={image || user.photoUrl} className="max-h-96" /> : null}
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Current image</label>
                         <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file"
                             accept="image/*" onChange={handleChange} />

@@ -75,6 +75,7 @@ export default function App() {
           }
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, loading])
 
   return (
@@ -89,7 +90,6 @@ export default function App() {
             <Route exact path="chat" element={loading ? <Loading /> : user ? <Chat /> : <Navigate replace to="/" />} />
             <Route path="chat/:id" element={loading ? <Loading /> : user ? <Chat /> : <Navigate replace to="/" />} />
             <Route exact path="profile" element={loading ? <Loading /> : user ? <Profile /> : <Navigate replace to="/" />} />
-
           </Route>
         </Routes>
       </BrowserRouter>
